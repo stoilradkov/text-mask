@@ -43,7 +43,9 @@ export default class MaskedInput extends React.PureComponent {
     const isPipeChanged = typeof pipe === 'function' && typeof prevProps.pipe === 'function' ?
       pipe.toString() !== prevProps.pipe.toString() :
       isNil(pipe) && !isNil(prevProps.pipe) || !isNil(pipe) && isNil(prevProps.pipe)
-    const isMaskChanged = mask.toString() !== prevProps.mask.toString()
+    const isMaskChanged = typeof mask === 'function' && typeof prevProps.mask === 'function' ? 
+      mask().toString() !== prevProps.mask().toString() : 
+      mask.toString() !== prevProps.mask.toString()
     const isSettingChanged =
       Object.keys(settings).some(prop => settings[prop] !== prevProps[prop]) ||
         isMaskChanged ||
